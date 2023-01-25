@@ -1,0 +1,18 @@
+{
+    "name": "drdm/dz",
+    "autoload": {
+        "psr-4": {
+            "Drdm\\Dz\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Dr-Dm",
+            "email": "0557586@gmail.com"
+        }
+    ],
+    "require": {
+        "fakerphp/faker": "^1.21",
+        "roave/security-advisories": "dev-latest"
+    }
+}
