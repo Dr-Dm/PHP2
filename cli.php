@@ -38,5 +38,7 @@ switch ($argv[1]) {
         $comment = $faker->text();
 
         echo new Comment($id, $user = new User($id, $name, $secondName), new Article($id, $user, $header, $text), $comment);
-        break;
+        break
+
+    default: die();
 }
