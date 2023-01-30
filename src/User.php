@@ -2,20 +2,50 @@
 
 namespace Drdm\Dz;
 
+use Drdm\Dz\Person\Name;
+
 class User
 {
     public function __construct(
         private int $id,
-        private string $name,
-        private string $secondName,
+        private Name $name,
+        private string $login
     )
     {
     }
 
+    /**
+     * @return Name
+     */
+    public function name(): Name
+    {
+        return $this->name;
+    }
+
     public function __toString(): string
     {
-        return $this->name . " " . $this->secondName;
+        $first_name = $this->name->getFirstName();
+        $last_mane = $this->name->getLastName();
+        return $first_name . " " . $last_mane;
     }
+
+    /**
+     * @return string
+     */
+    public function getLogin(): string
+    {
+        return $this->login;
+    }
+
+    /**
+     * @param string $login
+     */
+    public function setLogin(string $login): void
+    {
+        $this->login = $login;
+    }
+
+
 
     /**
      * @return int
@@ -31,38 +61,6 @@ class User
     public function setId(int $id): void
     {
         $this->id = $id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     */
-    public function setName(string $name): void
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSecondName(): string
-    {
-        return $this->secondName;
-    }
-
-    /**
-     * @param string $secondName
-     */
-    public function setSecondName(string $secondName): void
-    {
-        $this->secondName = $secondName;
     }
 
 }
