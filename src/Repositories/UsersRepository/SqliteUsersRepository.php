@@ -20,7 +20,7 @@ class SqliteUsersRepository
     {
 
         $statement = $this->connection->prepare(
-            'INSERT INTO users (first_name, last_name) VALUES (:first_name, :last_name)'
+            'INSERT INTO users (firstName, lastName) VALUES (:first_name, :last_name)'
         );
 
         $statement->execute([
