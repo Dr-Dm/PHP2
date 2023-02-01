@@ -1,20 +1,20 @@
 {
-    "name": "drdm/dz",
+    "name": "ember/abc",
     "autoload": {
         "psr-4": {
-            "Drdm\\Dz\\": "src/"
+            "GeekBrains\\LevelTwo\\": "src/"
         }
     },
     "authors": [
         {
-            "name": "Dr-Dm",
-            "email": "0557586@gmail.com"
+            "name": "Ember",
+            "email": "evebay@mail.ru"
         }
     ],
     "require": {
-        "fakerphp/faker": "^1.21",
+        "fakerphp/faker": "^1.20",
         "roave/security-advisories": "dev-latest",
-      "ext-pdo": "*",
+        "ext-pdo": "*",
         "symfony/polyfill-uuid": "^1.27"
     }
 }

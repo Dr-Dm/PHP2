@@ -1,34 +1,39 @@
 <?php
 
-
-namespace Drdm\Dz\Person;
+namespace GeekBrains\LevelTwo\Person;
 
 
 class Name
 {
-    public function __construct
-    (
-        private string $first_name,
-        private string $last_name
-    )
+    private string $firstName;
+    private string $lastName;
+
+    public function __construct(
+        string $firstName,
+        string $lastName
+    ) {
+        $this->lastName = $lastName;
+        $this->firstName = $firstName;
+    }
+    public function __toString()
     {
+        return $this->firstName . ' ' . $this->lastName;
     }
 
     /**
      * @return string
      */
-    public function getFirstName(): string
+    public function first(): string
     {
-        return $this->first_name;
+        return $this->firstName;
     }
-
 
     /**
      * @return string
      */
-    public function getLastName(): string
+    public function last(): string
     {
-        return $this->last_name;
+        return $this->lastName;
     }
 
 
