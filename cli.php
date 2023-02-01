@@ -1,42 +1,46 @@
 <?php
-require_once __DIR__ . "/vendor/autoload.php";
 
-use Drdm\Dz\{User, Article, Comment};
+use GeekBrains\LevelTwo\Blog\Commands\Arguments;
+use GeekBrains\LevelTwo\Blog\Commands\CreateUserCommand;
+use GeekBrains\LevelTwo\Blog\Post;
+use GeekBrains\LevelTwo\Blog\Repositories\PostRepository\SqlitePostRepository;
+use GeekBrains\LevelTwo\Blog\UUID;
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+
+    //Создаём объект подключения к SQLite
+    $connection = new PDO('sqlite:' . __DIR__ . '/blog.sqlite');
 
 $faker = Faker\Factory::create();
 
-if (empty($argv[1])){
-    die();
-}
+$postRepository = new SqlitePostRepository($connection);
 
-switch ($argv[1]) {
-    case "user":
-        $id = (int)$faker->uuid();
-        $name = $faker->firstName();
-        $secondName = $faker->lastName();
-        echo new User($id, $name, $secondName);
-        break;
+$post = new Post(
+    UUID::random(),
+    UUID::random(),
+    $faker->realText(rand(20, 30)),
+    $faker->realText(rand(200, 300))
+);
 
-    case "post":
-        $name = $faker->firstName();
-        $secondName = $faker->lastName();
+$postRepository->save($post);
 
-        $id = (int)$faker->uuid();
-        $header = $faker->title();
-        $text = $faker->text();
 
-        echo new Article($id, new User($id, $name, $secondName), $header, $text);
-        break;
+//Создаём объект репозитория
+    //$usersRepository = new SqliteUsersRepository($connection);
+   // $usersRepository = new InMemoryUsersRepository();
 
-    case "comment":
-        $name = $faker->firstName();
-        $secondName = $faker->lastName();
-        $header = $faker->title();
-        $text = $faker->text();
+    //$command = new CreateUserCommand($usersRepository);
 
-        $id = (int)$faker->uuid();
-        $comment = $faker->text();
+try {
+    //$command->handle(Arguments::fromArgv($argv));
 
-        echo new Comment($id, $user = new User($id, $name, $secondName), new Article($id, $user, $header, $text), $comment);
-        break;
+    //$user = $usersRepository->getByUsername('ivan');
+   //print $user;
+   // $usersRepository->save(new User(UUID::random(), 'admin', new Name('Ivan', 'Nikitin')));
+  // echo $usersRepository->getByUsername('admin');
+//$usersRepository->save(new User(2, new Name('Anna', 'Petrova')));
+
+} catch (Exception $exception) {
+    echo $exception->getMessage();
 }
