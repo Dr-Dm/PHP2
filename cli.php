@@ -1,42 +1,48 @@
 <?php
-require_once __DIR__ . "/vendor/autoload.php";
 
-use Drdm\Dz\{User, Article, Comment};
+use GeekBrains\LevelTwo\Blog\Commands\Arguments;
+use GeekBrains\LevelTwo\Blog\Commands\CreateUserCommand;
+use GeekBrains\LevelTwo\Blog\Post;
+use GeekBrains\LevelTwo\Blog\Repositories\UsersRepository\SqliteUsersRepository;
+use GeekBrains\LevelTwo\Blog\UUID;
+use GeekBrains\LevelTwo\Blog\Repositories\PostsRepository\SqlitePostsRepository;
 
-$faker = Faker\Factory::create();
+require_once __DIR__ . '/vendor/autoload.php';
 
-if (empty($argv[1])){
-    die();
-}
+try {
+    //Создаём объект подключения к SQLite
+    $connection = new PDO('sqlite:' . __DIR__ . '/blog.sqlite');
 
-switch ($argv[1]) {
-    case "user":
-        $id = (int)$faker->uuid();
-        $name = $faker->firstName();
-        $secondName = $faker->lastName();
-        echo new User($id, $name, $secondName);
-        break;
 
-    case "post":
-        $name = $faker->firstName();
-        $secondName = $faker->lastName();
+    $postRepository = new SqlitePostsRepository($connection);
 
-        $id = (int)$faker->uuid();
-        $header = $faker->title();
-        $text = $faker->text();
+    $post = $postRepository->get(new UUID('d02eef69-1a06-460f-b859-202b84164734'));
+    echo $post->getTitle() .PHP_EOL;
+    echo $post;
+    /*$post = new Post(
+        UUID::random(),
+        UUID::random(),
+        $faker->realText(rand(20, 30)),
+        $faker->realText(rand(200, 280))
+    );
 
-        echo new Article($id, new User($id, $name, $secondName), $header, $text);
-        break;
+    $postRepository->save($post);*/
 
-    case "comment":
-        $name = $faker->firstName();
-        $secondName = $faker->lastName();
-        $header = $faker->title();
-        $text = $faker->text();
+//Создаём объект репозитория
+    //$usersRepository = new SqliteUsersRepository($connection);
+    // $usersRepository = new InMemoryUsersRepository();
 
-        $id = (int)$faker->uuid();
-        $comment = $faker->text();
+    // $command = new CreateUserCommand($usersRepository);
 
-        echo new Comment($id, $user = new User($id, $name, $secondName), new Article($id, $user, $header, $text), $comment);
-        break;
+
+    //  $command->handle(Arguments::fromArgv($argv));
+
+    // $user = $usersRepository->getByUsername('ivan');
+    // print $user;
+    // $usersRepository->save(new User(UUID::random(), 'admin', new Name('Ivan', 'Nikitin')));
+    // echo $usersRepository->getByUsername('admin');
+//$usersRepository->save(new User(2, new Name('Anna', 'Petrova')));
+
+} catch (Exception $exception) {
+    echo $exception->getMessage();
 }
