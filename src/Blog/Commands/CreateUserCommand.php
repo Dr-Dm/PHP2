@@ -5,7 +5,7 @@ namespace GeekBrains\LevelTwo\Blog\Commands;
 use GeekBrains\LevelTwo\Blog\Exceptions\ArgumentsException;
 use GeekBrains\LevelTwo\Blog\Exceptions\CommandException;
 use GeekBrains\LevelTwo\Blog\Exceptions\UserNotFoundException;
-use GeekBrains\LevelTwo\Blog\Repositories\UsersRepository\UsersRepositoryInterface;
+use GeekBrains\LevelTwo\Blog\Repositories\Interfaces\UsersRepositoryInterface;
 use GeekBrains\LevelTwo\Blog\User;
 use GeekBrains\LevelTwo\Blog\UUID;
 use GeekBrains\LevelTwo\Person\Name;
