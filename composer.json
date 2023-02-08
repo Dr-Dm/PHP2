@@ -1,18 +1,27 @@
 {
-    "name": "drdm/dz",
+    "name": "ember/abc",
     "autoload": {
         "psr-4": {
-            "Drdm\\Dz\\": "src/"
+            "GeekBrains\\LevelTwo\\": "src/"
         }
     },
     "authors": [
         {
-            "name": "Dr-Dm",
-            "email": "0557586@gmail.com"
+            "name": "Ember",
+            "email": "evebay@mail.ru"
         }
     ],
     "require": {
-        "fakerphp/faker": "^1.21",
+        "ext-pdo": "*",
+        "symfony/polyfill-uuid": "^1.26",
+      "ext-mbstring": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5",
+        "fakerphp/faker": "^1.20",
         "roave/security-advisories": "dev-latest"
+    },
+    "scripts": {
+        "test": "phpunit tests --testdox --colors"
     }
 }
