@@ -17,8 +17,8 @@ try {
     $postRepository = new SqlitePostsRepository($connection);
 
     $post = $postRepository->get(new UUID('d02eef69-1a06-460f-b859-202b84164734'));
-    echo $post->getTitle() .PHP_EOL;
     echo $post;
+    echo $post->getUser();
     /*$post = new Post(
         UUID::random(),
         UUID::random(),
