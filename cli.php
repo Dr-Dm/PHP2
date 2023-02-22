@@ -39,4 +39,6 @@ switch ($argv[1]) {
 
         echo new Comment($id, $user = new User($id, $name, $secondName), new Article($id, $user, $header, $text), $comment);
         break;
+
+    default: die();
 }

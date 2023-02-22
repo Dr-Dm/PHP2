@@ -82,7 +82,4 @@ class Article
         $this->text = $text;
     }
 
-
-
-
 }

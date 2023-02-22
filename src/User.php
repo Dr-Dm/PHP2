@@ -64,5 +64,5 @@ class User
     {
         $this->secondName = $secondName;
     }
-    
+
 }
