@@ -1,32 +1,38 @@
 <?php
 
-namespace Commands;
+namespace GeekBrains\LevelTwo\Blog\UnitTests\Commands;
 
 use GeekBrains\LevelTwo\Blog\Commands\Arguments;
-use GeekBrains\LevelTwo\Exceptions\ArgumentsException;
+use GeekBrains\LevelTwo\Blog\Exceptions\ArgumentsException;
 use PHPUnit\Framework\TestCase;
 
 class ArgumentsTest extends TestCase
 {
-
-    /**
-     * @throws ArgumentsException
-     */
-    public function testItReturnsValuesAsStrings(): void
+    public function testItReturnsArgumentsValueByName(): void
     {
+        // Подготовка
         $arguments = new Arguments(['some_key' => 123]);
+
+        // Действие
         $value = $arguments->get('some_key');
 
+        // Проверка
         $this->assertSame('123', $value);
-
         $this->assertIsString($value);
     }
 
     public function testItThrowsAnExceptionWhenArgumentIsAbsent(): void
     {
+        // Подготавливаем объект с пустым набором данных
         $arguments = new Arguments([]);
+
+        // Описываем тип ожидаемого исключения
         $this->expectException(ArgumentsException::class);
+
+        // и его сообщение
         $this->expectExceptionMessage("No such argument: some_key");
+
+        // Выполняем действие, приводящее к выбрасыванию исключения
         $arguments->get('some_key');
     }
 
@@ -56,5 +62,4 @@ class ArgumentsTest extends TestCase
             [12.3, '12.3'],
         ];
     }
-
 }

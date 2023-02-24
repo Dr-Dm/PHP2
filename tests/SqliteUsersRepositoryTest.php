@@ -1,10 +1,14 @@
 <?php
 
+namespace GeekBrains\LevelTwo;
+
+use GeekBrains\LevelTwo\Blog\Exceptions\UserNotFoundException;
 use GeekBrains\LevelTwo\Blog\Repositories\UsersRepository\SqliteUsersRepository;
 use GeekBrains\LevelTwo\Blog\User;
 use GeekBrains\LevelTwo\Blog\UUID;
-use GeekBrains\LevelTwo\Exceptions\UserNotFoundException;
 use GeekBrains\LevelTwo\Person\Name;
+use PDO;
+use PDOStatement;
 use PHPUnit\Framework\TestCase;
 
 class SqliteUsersRepositoryTest extends TestCase
@@ -21,7 +25,6 @@ class SqliteUsersRepositoryTest extends TestCase
         $this->expectExceptionMessage('Cannot find user: Ivan');
 
         $repository->getByUsername('Ivan');
-
     }
 
     // Тест, проверяющий, что репозиторий сохраняет данные в БД
@@ -45,15 +48,17 @@ class SqliteUsersRepositoryTest extends TestCase
 // 3. При вызове метода prepare стаб подключения
 // возвращает мок запроса
         $connectionStub->method('prepare')->willReturn($statementMock);
+
 // 1. Передаём в репозиторий стаб подключения
         $repository = new SqliteUsersRepository($connectionStub);
+
 // Вызываем метод сохранения пользователя
         $repository->save(
             new User( // Свойства пользователя точно такие,
 // как и в описании мока
                 new UUID('123e4567-e89b-12d3-a456-426614174000'),
+                new Name('Ivan', 'Nikitin'),
                 'ivan123',
-                new Name('Ivan', 'Nikitin')
             )
         );
     }

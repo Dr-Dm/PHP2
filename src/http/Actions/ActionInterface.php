@@ -1,6 +1,6 @@
 <?php
 
-namespace GeekBrains\LevelTwo\http\Actions;
+namespace GeekBrains\LevelTwo\Http\Actions;
 
 use GeekBrains\LevelTwo\http\Request;
 use GeekBrains\LevelTwo\http\Response;

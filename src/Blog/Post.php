@@ -6,23 +6,20 @@ namespace GeekBrains\LevelTwo\Blog;
 class Post
 {
 
+
     public function __construct(
         private UUID   $uuid,
         private User   $user,
         private string $title,
         private string $text,
     )
-    {}
-
-    public function __toString()
     {
-        return $this->user->username() . ' пишет: ' . $this->text;
     }
 
     /**
      * @return UUID
      */
-    public function getUuid(): UUID
+    public function uuid(): UUID
     {
         return $this->uuid;
     }
@@ -33,22 +30,6 @@ class Post
     public function setUuid(UUID $uuid): void
     {
         $this->uuid = $uuid;
-    }
-
-    /**
-     * @return User
-     */
-    public function getUser(): User
-    {
-        return $this->user;
-    }
-
-    /**
-     * @param User $user
-     */
-    public function setUser(User $user): void
-    {
-        $this->user = $user;
     }
 
     /**
@@ -67,6 +48,41 @@ class Post
         $this->title = $title;
     }
 
+
+
+    /**
+     * @return int
+     */
+    public function id(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return User
+     */
+    public function getUser(): User
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User $user
+     */
+    public function setUser(User $user): void
+    {
+        $this->user = $user;
+    }
+
+
     /**
      * @return string
      */
@@ -78,10 +94,15 @@ class Post
     /**
      * @param string $text
      */
-    public function setText(string $text): void
+    public function setText(string $text): Post
     {
         $this->text = $text;
+        return $this;
     }
 
 
+    public function __toString()
+    {
+        return $this->user . ' пишет: ' . $this->text . PHP_EOL;
+    }
 }

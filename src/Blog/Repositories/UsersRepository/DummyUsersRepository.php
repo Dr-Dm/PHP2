@@ -2,10 +2,10 @@
 
 namespace GeekBrains\LevelTwo\Blog\Repositories\UsersRepository;
 
-use GeekBrains\LevelTwo\Blog\Repositories\Interfaces\UsersRepositoryInterface;
+use GeekBrains\LevelTwo\Blog\Exceptions\UserNotFoundException;
+use GeekBrains\LevelTwo\Blog\Repositories\UsersRepository\UsersRepositoryInterface;
 use GeekBrains\LevelTwo\Blog\User;
 use GeekBrains\LevelTwo\Blog\UUID;
-use GeekBrains\LevelTwo\Exceptions\UserNotFoundException;
 use GeekBrains\LevelTwo\Person\Name;
 
 class DummyUsersRepository implements UsersRepositoryInterface
@@ -23,6 +23,6 @@ class DummyUsersRepository implements UsersRepositoryInterface
 
     public function getByUsername(string $username): User
     {
-        return new User(UUID::random(), "user123", new Name("first", "last"));
+        return new User(UUID::random(), new Name("first", "last"), "user123");
     }
 }

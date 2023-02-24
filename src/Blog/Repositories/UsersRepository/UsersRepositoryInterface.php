@@ -1,6 +1,6 @@
 <?php
 
-namespace GeekBrains\LevelTwo\Blog\Repositories\Interfaces;
+namespace GeekBrains\LevelTwo\Blog\Repositories\UsersRepository;
 
 use GeekBrains\LevelTwo\Blog\User;
 use GeekBrains\LevelTwo\Blog\UUID;

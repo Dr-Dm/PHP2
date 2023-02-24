@@ -2,7 +2,7 @@
 
 namespace GeekBrains\LevelTwo\Blog\Commands;
 
-use GeekBrains\LevelTwo\Exceptions\ArgumentsException;
+use GeekBrains\LevelTwo\Blog\Exceptions\ArgumentsException;
 
 class Arguments
 {
@@ -11,19 +11,19 @@ class Arguments
     public function __construct(iterable $arguments)
     {
         foreach ($arguments as $argument => $value) {
-
+// Приводим к строкам
             $stringValue = trim((string)$value);
-
+// Пропускаем пустые значения
             if (empty($stringValue)) {
                 continue;
 
             }
-
+// Также приводим к строкам ключ
             $this->arguments[(string)$argument] = $stringValue;
         }
     }
 
-
+// Переносим сюда логику разбора аргументов командной строки
     public static function fromArgv(array $argv): self
     {
         $arguments = [];

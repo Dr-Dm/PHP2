@@ -2,11 +2,10 @@
 
 namespace Actions;
 
-
-use GeekBrains\LevelTwo\Blog\Repositories\Interfaces\UsersRepositoryInterface;
+use GeekBrains\LevelTwo\Blog\Exceptions\UserNotFoundException;
+use GeekBrains\LevelTwo\Blog\Repositories\UsersRepository\UsersRepositoryInterface;
 use GeekBrains\LevelTwo\Blog\User;
 use GeekBrains\LevelTwo\Blog\UUID;
-use GeekBrains\LevelTwo\Exceptions\UserNotFoundException;
 use GeekBrains\LevelTwo\http\Actions\Users\FindByUsername;
 use GeekBrains\LevelTwo\http\ErrorResponse;
 use GeekBrains\LevelTwo\http\Request;
@@ -22,34 +21,29 @@ class FindByUsernameActionTest extends TestCase
      * @preserveGlobalState disabled
      * @throws /JsonException
      */
-// Тест, проверяющий, что будет возвращён неудачный ответ,
+
+    // Тест, проверяющий, что будет возвращён неудачный ответ,
 // если в запросе нет параметра username
     public function testItReturnsErrorResponseIfNoUsernameProvided(): void
     {
-// Создаём объект запроса
+        // Создаём объект запроса
 // Вместо суперглобальных переменных
 // передаём простые массивы
         $request = new Request([], [], "");
 
-// Создаём стаб репозитория пользователей
+        // Создаём стаб репозитория пользователей
         $usersRepository = $this->usersRepository([]);
-//Создаём объект действия
+
         $action = new FindByUsername($usersRepository);
-// Запускаем действие
         $response = $action->handle($request);
-// Проверяем, что ответ - неудачный
         $this->assertInstanceOf(ErrorResponse::class, $response);
-// Описываем ожидание того, что будет отправлено в поток вывода
         $this->expectOutputString('{"success":false,"reason":"No such query param in the request: username"}');
-// Отправляем ответ в поток вывода
         $response->send();
     }
     /**
      * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
-// Тест, проверяющий, что будет возвращён неудачный ответ,
-// если пользователь не найден
     public function testItReturnsErrorResponseIfUserNotFound(): void
     {
 // Теперь запрос будет иметь параметр username
@@ -62,6 +56,7 @@ class FindByUsernameActionTest extends TestCase
         $this->expectOutputString('{"success":false,"reason":"Not found"}');
         $response->send();
     }
+
     /**
      * @runInSeparateProcess
      * @preserveGlobalState disabled
@@ -76,8 +71,9 @@ class FindByUsernameActionTest extends TestCase
         $usersRepository = $this->usersRepository([
             new User(
                 UUID::random(),
+                new Name('Ivan', 'Nikitin'),
                 'ivan',
-                new Name('Ivan', 'Nikitin')
+
             ),
         ]);
         $action = new FindByUsername($usersRepository);
@@ -87,7 +83,8 @@ class FindByUsernameActionTest extends TestCase
         $this->expectOutputString('{"success":true,"data":{"username":"ivan","name":"Ivan Nikitin"}}');
         $response->send();
     }
-// Функция, создающая стаб репозитория пользователей,
+
+    // Функция, создающая стаб репозитория пользователей,
 // принимает массив "существующих" пользователей
     private function usersRepository(array $users): UsersRepositoryInterface
     {

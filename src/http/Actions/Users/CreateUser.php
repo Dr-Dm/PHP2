@@ -1,17 +1,17 @@
 <?php
 
-namespace GeekBrains\LevelTwo\http\Actions\Users;
+namespace GeekBrains\LevelTwo\Http\Actions\Users;
 
-use GeekBrains\LevelTwo\http\Request;
-use GeekBrains\LevelTwo\Blog\Repositories\Interfaces\UsersRepositoryInterface;
+use GeekBrains\LevelTwo\Blog\Exceptions\HttpException;
+use GeekBrains\LevelTwo\Blog\Repositories\UsersRepository\UsersRepositoryInterface;
 use GeekBrains\LevelTwo\Blog\User;
 use GeekBrains\LevelTwo\Blog\UUID;
 use GeekBrains\LevelTwo\http\Actions\ActionInterface;
-use GeekBrains\LevelTwo\Person\Name;
-use GeekBrains\LevelTwo\Exceptions\HttpException;
 use GeekBrains\LevelTwo\http\ErrorResponse;
-use GeekBrains\LevelTwo\http\SuccessfulResponse;
+use GeekBrains\LevelTwo\http\Request;
 use GeekBrains\LevelTwo\http\Response;
+use GeekBrains\LevelTwo\http\SuccessfulResponse;
+use GeekBrains\LevelTwo\Person\Name;
 
 class CreateUser implements ActionInterface
 {
@@ -27,11 +27,11 @@ class CreateUser implements ActionInterface
 
             $user = new User(
                 $newUserUuid,
-                $request->jsonBodyField('username'),
                 new Name(
                     $request->jsonBodyField('first_name'),
                     $request->jsonBodyField('last_name')
-                )
+                ),
+                $request->jsonBodyField('username')
             );
 
         } catch (HttpException $e) {
